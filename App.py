@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-# Load model
+# Load the trained model
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
@@ -17,7 +17,7 @@ def predict():
     try:
         data = request.get_json()
 
-        # Replace these keys with your actual feature names
+        # Replace these with actual feature names used in training
         features = [
             data["duration"],
             data["protocol_type"],
