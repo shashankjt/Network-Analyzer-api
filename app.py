@@ -17,15 +17,20 @@ def predict():
     try:
         data = request.get_json()
 
-        # Replace these with actual feature names used in training
+        # Ensure all 6 features are included
         features = [
-            data["duration"],
-            data["protocol_type"],
-            data["src_bytes"],
-            data["dst_bytes"]
+            data["Source"],
+            data["Destination"],
+            data["Protocol"],
+            data["Length"],
+            data["Src_Dst_Interaction"],
+            data["Length_Category"]
         ]
 
-        prediction = model.predict([features])
+        # Convert to proper format for prediction
+        features = np.array(features).reshape(1, -1)
+
+        prediction = model.predict(features)
         return jsonify({"prediction": int(prediction[0])})
     except Exception as e:
         return jsonify({"error": str(e)})
